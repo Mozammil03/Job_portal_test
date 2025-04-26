@@ -6,6 +6,8 @@ import com.example.demo.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service( value = "userService")
 public class UserServiceImpl implements UserService{
@@ -22,5 +24,11 @@ public class UserServiceImpl implements UserService{
         user = userRepo.save(user);
 
         return user.toDTO();
+    }
+
+    @Override
+    public List getAllUser(){
+        List<User> lis = userRepo.findAll();
+        return lis;
     }
 }

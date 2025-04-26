@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -26,6 +27,13 @@ public class UserController {
         userDto = userService.registerUser(userDto);
         return new ResponseEntity<>(userDto, HttpStatus.CREATED);
     };
+
+    @GetMapping("/getUser")
+    public ResponseEntity<List>getUsers(){
+        List<UserDto> lis = new ArrayList<>();
+        lis = userService.getAllUser();
+        return new ResponseEntity<>(lis,HttpStatus.OK);
+    }
 
 
 }
