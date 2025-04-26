@@ -16,7 +16,7 @@ This is the backend server for the Job Portal application built with Java Spring
 - Spring Boot
 - Spring Security
 - Spring Data JPA
-- PostgreSQL (or any relational DB)
+- PostgreSQL
 - Maven
 
 ## Getting Started
