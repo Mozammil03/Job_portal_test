@@ -13,11 +13,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Table(name = "users")
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // or GenerationType.AUTO
     private Long id;
-
 
     private String name;
     @Column(unique = true)
@@ -25,8 +23,10 @@ public class User {
     private String password;
     private AccountType accountType;
 
+
     public UserDto toDTO() {
         return new UserDto(this.id,this.name, this.email, this.password, this.accountType);
     }
     // Getters and Setters
+
 }
