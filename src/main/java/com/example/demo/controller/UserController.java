@@ -1,9 +1,9 @@
 package com.example.demo.controller;
-import com.example.demo.dto.LogInDto;
-import com.example.demo.dto.ResponseDto;
-import com.example.demo.dto.UserDto;
+import com.example.demo.dto.*;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepo;
+import com.example.demo.service.PfpService;
+import com.example.demo.service.ProfileService;
 import com.example.demo.service.UserService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
@@ -25,22 +25,19 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
     @PostMapping("/register")
     public ResponseEntity<UserDto>registerUser(@RequestBody @Valid UserDto userDto){
         userDto = userService.registerUser(userDto);
         return new ResponseEntity<>(userDto, HttpStatus.CREATED);
     };
-
     @PostMapping("/login")
     public ResponseEntity<UserDto>loginUser(@RequestBody @Valid LogInDto logInDto){
 
         return new ResponseEntity<>(userService.logInUser(logInDto), HttpStatus.OK);
     };
-
     @GetMapping("/getAllUser")
     public ResponseEntity<List>getUsers(){
-        List<UserDto> lis = new ArrayList<>();
+        List lis = new ArrayList<>();
         lis = userService.getAllUser();
         return new ResponseEntity<>(lis,HttpStatus.OK);
     }
@@ -54,13 +51,38 @@ public class UserController {
         userService.verifyOTP(email,otp);
         return new ResponseEntity<>(new ResponseDto("Otp Verified"), HttpStatus.OK);
     };
-
     @PostMapping("/changePass")
     public ResponseEntity<ResponseDto>changePass(@RequestBody UserDto userDto) throws Exception{
         ResponseDto res = userService.changePass(userDto);
         return new ResponseEntity<>(res, HttpStatus.OK);
     };
+    @Autowired
+    private ProfileService profileService;
+    @PostMapping("/save")
+    public ResponseEntity<String> saveProfile(@RequestBody ProfileDto profileDto) {
+        String message = profileService.createProfile(profileDto.getEmail(), profileDto);
+        return ResponseEntity.ok(message);
+    }
 
 
+    @Autowired
+    private PfpService pfpService;
 
+    @PostMapping("/updatePfpDetails")
+    public  ResponseEntity<PfpDto> savePfp(@RequestBody PfpDto pfpDto){
+        PfpDto pfp = pfpService.updateDetails(pfpDto);
+        return new ResponseEntity<>(pfp, HttpStatus.OK);
+    }
+
+    @GetMapping("/getPfpDetails")
+    public ResponseEntity<PfpDto> getPfpDetails(@RequestParam String email){
+        PfpDto pfp =  pfpService.getDetails(email);
+        return new ResponseEntity<>(pfp, HttpStatus.OK);
+    }
+
+
+    @GetMapping("/pfpexist")
+    public ResponseEntity<Boolean> pfpExist(@RequestParam String email){
+        return new ResponseEntity<>(pfpService.pfpExists(email),HttpStatus.OK);
+    }
 }

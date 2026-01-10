@@ -1,8 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.LogInDto;
-import com.example.demo.dto.ResponseDto;
-import com.example.demo.dto.UserDto;
+import com.example.demo.dto.*;
 import com.example.demo.exception.JobPortalException;
 import com.example.demo.model.OTP;
 import com.example.demo.model.User;
@@ -36,6 +34,8 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+//    @Autowired
+//    private ProfileService profileService;
 
     @Override
     public UserDto registerUser(UserDto userDto){
@@ -51,8 +51,8 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public List getAllUser(){
-        List<User> lis = userRepo.findAll();
-        return lis;
+        return userRepo.findAll();
+
     }
 
     @Override
@@ -74,7 +74,7 @@ public class UserServiceImpl implements UserService{
         MimeMessage mm = mailSender.createMimeMessage();
         MimeMessageHelper message = new MimeMessageHelper(mm,true);
         message.setTo(email);
-        message.setSubject("Your OTP code for jobPortal verfication");
+        message.setSubject("Your OTP code for jobPortal verification");
         String genOTP = RandomOTPgen.genOTP();
         OTP otp = new OTP(email,genOTP, LocalDateTime.now());
         otpRepo.save(otp);
