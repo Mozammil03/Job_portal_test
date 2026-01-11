@@ -85,4 +85,22 @@ public class UserController {
     public ResponseEntity<Boolean> pfpExist(@RequestParam String email){
         return new ResponseEntity<>(pfpService.pfpExists(email),HttpStatus.OK);
     }
+
+    @GetMapping("/getpfps")
+    public ResponseEntity<List<PfpDto>> getpfps(){
+        return new ResponseEntity<>(pfpService.getPfps(),HttpStatus.OK);
+    }
+
+    //testing
+    @PostMapping("/floodpfps")
+    public ResponseEntity<List<String>> floodpfps(@RequestBody List<PfpDto> lis){
+        List<String> names = new ArrayList<>();
+        for(PfpDto p: lis){
+            pfpService.updateDetails(p);
+            names.add(p.getName());
+        }
+        return new ResponseEntity<>(names,HttpStatus.OK);
+    }
+
+
 }

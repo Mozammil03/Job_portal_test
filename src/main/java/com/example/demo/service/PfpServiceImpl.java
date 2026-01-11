@@ -7,6 +7,9 @@ import com.example.demo.repository.PfpRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service( value = "pfpService")
 public class PfpServiceImpl implements PfpService{
     @Autowired
@@ -38,5 +41,14 @@ public class PfpServiceImpl implements PfpService{
 
     public Boolean pfpExists(String email){
         return pfpRepo.existsByEmail(email);
+    };
+
+    public List<PfpDto> getPfps(){
+        List<Pfp> res = pfpRepo.findAll();
+        List<PfpDto> ret = new ArrayList<>();
+        for(Pfp p: res  ){
+            ret.add(p.toDto());
+        }
+        return ret;
     };
 }
