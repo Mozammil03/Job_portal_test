@@ -1,6 +1,6 @@
 # Job-Portal Backend
 
-This is the backend server for the Job Portal application built with Java Spring Boot.
+This is the backend server for the Job-Portal application built with Java Spring Boot.
 code path-  Job_portal_test/src/main/java/com/example/demo/
 
 
@@ -24,6 +24,7 @@ code path-  Job_portal_test/src/main/java/com/example/demo/
 ## Getting Started
 
 ### Prerequisites
+
 
 - Java 17+
 - Maven 3.8+
