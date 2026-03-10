@@ -35,5 +35,5 @@ code path-  Job_portal_test/src/main/java/com/example/demo/
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/job-portal-backend.git
+   git clone https://github.com/mozammil03/job-portal-backend.git
    cd job-portal-backend
